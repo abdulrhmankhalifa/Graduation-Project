@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:graduation_project_yarab/Screens/Camera/recomended_screen.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
@@ -78,6 +79,7 @@ class _CameraScreenState extends State<CameraScreen> {
       var response = await request.send();
       if (response.statusCode == 200) {
         print('Image uploaded successfully');
+        showSuccessMessage('Your Skin Type Has Been Recognized');
       } else {
         print('Error uploading image: ${response.statusCode}');
       }
@@ -127,6 +129,17 @@ class _CameraScreenState extends State<CameraScreen> {
                 fontSize: 20.0,
               ),
             ),
+                SizedBox(height: screenHeight * 0.02),
+                const Flexible(
+                  child: Text(
+                    'Note : Analyzing Your Skin Features Takes Time, So please be patient!',
+                    maxLines: 3,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
             const Spacer(),
             ElevatedButton(
                 onPressed: postImageToApi,
@@ -166,5 +179,11 @@ class _CameraScreenState extends State<CameraScreen> {
                 )),
           ])),
     );
+  }
+  void showSuccessMessage(String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
