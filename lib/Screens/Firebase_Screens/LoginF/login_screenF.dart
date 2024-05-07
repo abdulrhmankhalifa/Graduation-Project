@@ -1,10 +1,5 @@
-import 'dart:convert';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-
 import '../../../Network/auth_service.dart';
 import '../../../Sheard/component.dart';
 import '../ForgetPassword/forget_password_screen.dart';
@@ -45,20 +40,6 @@ class _LoginPageState extends State<LoginScreenF> {
       );
     }
   }
-  // Future<void> signIn() async {
-  //   try {
-  //     UserCredential userCredential = await FirebaseAuth.instance
-  //         .signInWithEmailAndPassword(
-  //         email: emailController.text,
-  //         password: passwordController.text);
-  //   } on FirebaseAuthException catch (e) {
-  //     print('Failed with error code: ${e.code}');
-  //     print(e.message);
-  //   }
-  // }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +59,12 @@ class _LoginPageState extends State<LoginScreenF> {
                     height: screenHeight * 0.1,
                   ),
                   IconButton(
-                    icon: Image.asset('assets/images/LogoImage.jpg'),
-                    iconSize: 170,
+                    icon: Image.asset(
+                        'assets/images/LogoImage.jpg',
+                      scale: 5,
+                    ),
                     onPressed: () {},
-                    color: Colors.grey[800],
+                    color: Colors.white,
                   ),
                   const Text(
                     "Welcome back you\'ve been missed!",
@@ -90,7 +73,7 @@ class _LoginPageState extends State<LoginScreenF> {
                     ),
                   ),
                    SizedBox(
-                    height: screenHeight * 0.05,
+                    height: screenHeight * 0.02,
                   ),
                   MyTextField(
                     controller: emailController,
@@ -98,7 +81,7 @@ class _LoginPageState extends State<LoginScreenF> {
                     obscureText: false,
                   ),
                    SizedBox(
-                    height: screenHeight * 0.02,
+                    height: screenHeight * 0.01,
                   ),
                   MyTextField(
                     controller: passwordController,
@@ -106,7 +89,7 @@ class _LoginPageState extends State<LoginScreenF> {
                     obscureText: true,
                   ),
                    SizedBox(
-                    height: screenHeight * 0.015,
+                    height: screenHeight * 0.01,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -128,7 +111,7 @@ class _LoginPageState extends State<LoginScreenF> {
                     ],
                   ),
                    SizedBox(
-                    height: screenHeight * 0.015,
+                    height: screenHeight * 0.01,
                   ),
                   MyButton(
                     onTap: signIn,

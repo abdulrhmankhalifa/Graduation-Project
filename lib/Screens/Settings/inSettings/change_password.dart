@@ -89,10 +89,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: Image.asset('assets/images/LogoImage.jpg'),
-                  iconSize: 170,
+                  icon: Image.asset(
+                      'assets/images/LogoImage.jpg',
+                    scale: 4,
+                  ),
                   onPressed: () {},
-                  color: Colors.grey[800],
+                  color: Colors.white,
                 ),
                  SizedBox(
                   height: screenHeight * 0.02,

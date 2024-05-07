@@ -181,10 +181,12 @@ class _RegisterPageState extends State<RegisterScreenF> {
                 children: [
                   ///Icon app
                   IconButton(
-                    icon: Image.asset('assets/images/LogoImage.jpg'),
-                    iconSize: 170,
+                    icon: Image.asset(
+                        'assets/images/LogoImage.jpg',
+                      scale: 4,
+                    ),
                     onPressed: () {},
-                    color: Colors.grey[800],
+                    color: Colors.white,
                   ),
 
                   ///Text
@@ -195,7 +197,7 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     ),
                   ),
 
-                   SizedBox(height: screenHeight * 0.04,),
+                   SizedBox(height: screenHeight * 0.02,),
                   ///EmailTextField
                   MyTextField(
                     controller: emailController,
@@ -205,7 +207,7 @@ class _RegisterPageState extends State<RegisterScreenF> {
 
 
 
-                   SizedBox(height: screenHeight * 0.02,),
+                   SizedBox(height: screenHeight * 0.01,),
 
                   ///PasswordTextField
                   MyTextField(
@@ -214,7 +216,7 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     obscureText: true,
                   ),
 
-                  SizedBox(height: screenHeight * 0.02,),
+                  SizedBox(height: screenHeight * 0.01,),
 
                   ///ConfirmPasswordTextField
                   MyTextField(
@@ -223,7 +225,7 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     obscureText: true,
                   ),
 
-                  SizedBox(height: screenHeight * 0.02,),
+                  SizedBox(height: screenHeight * 0.01,),
 
 
                   /// PhoneNumberTextField
@@ -233,7 +235,7 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     obscureText: false,
                   ),
 
-                  SizedBox(height: screenHeight * 0.02,),
+                  SizedBox(height: screenHeight * 0.01,),
 
                   ///button Sigh up Field
                   MyButton(
@@ -241,7 +243,7 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     text: "Sign Up",
                   ),
 
-                  SizedBox(height: screenHeight * 0.02,),
+                  SizedBox(height: screenHeight * 0.01,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

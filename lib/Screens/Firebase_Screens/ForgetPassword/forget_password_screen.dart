@@ -64,11 +64,10 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                  SizedBox(height: screenHeight * 0.1,),
 
                 IconButton(
-                  icon: Image.asset('assets/images/LogoImage.jpg'),
-                  iconSize: 220,
+                  icon: Image.asset('assets/images/LogoImage.jpg',scale: 4,),
                   onPressed: () {
                   },
-                  color: Colors.grey[800],
+                  color: Colors.white,
                 ),
 
                  SizedBox(height: screenHeight * 0.05,),

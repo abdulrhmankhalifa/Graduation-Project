@@ -17,14 +17,19 @@ class HomeDesign extends StatefulWidget {
 
 class _HomeDesignState extends State<HomeDesign> {
   int _currentIndex = 0; // Initial index
+  final List<Widget> _screens = [
+    HomeScreen(), // Replace with your actual screens
+    CameraScreen(),
+    FavoritesScreen(),
+    SettingScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar:AppBar(
+      appBar: AppBar(
         backgroundColor: Colors.grey[100],
-        // centerTitle: true,
         title: const Text(
           'Beauty Mate',
           style: TextStyle(
@@ -36,59 +41,53 @@ class _HomeDesignState extends State<HomeDesign> {
         ),
         actions: [
           IconButton(
-            onPressed:() {
-              Navigator.push(
-                  context,
-                MaterialPageRoute(
-                    builder: (context) => Products(),
-                )
-                  ,);
-            },
-            icon: const Icon(
-              Icons.search,color:defaultColor,
-              size: 25.0,
-            ),
-          ),
-          IconButton(
-            onPressed:() {
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FavoritesScreen(),
-                )
-                ,);
+                  builder: (context) => Products(),
+                ),
+              );
             },
             icon: const Icon(
-              Icons.favorite_border,color:defaultColor,
+              Icons.search,
+              color: defaultColor,
               size: 25.0,
             ),
           ),
+          // IconButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => FavoritesScreen(),
+          //       ),
+          //     );
+          //   },
+          //   icon: const Icon(
+          //     Icons.favorite_border,
+          //     color: defaultColor,
+          //     size: 25.0,
+          //   ),
+          // ),
           IconButton(
-            onPressed:() {
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => CartScreen(),
-                )
-                ,);
+                ),
+              );
             },
             icon: const Icon(
               Icons.shopping_cart_outlined,
-              color:defaultColor,
+              color: defaultColor,
               size: 25.0,
             ),
           ),
         ],
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: const <Widget>[
-          HomeScreen(), // Replace with your actual screens
-          CameraScreen(),
-          // FavoritesScreen(),
-          SettingScreen(),
-        ],
-      ),
+      body: _screens[_currentIndex], // Display the selected screen
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int index) {
@@ -99,25 +98,25 @@ class _HomeDesignState extends State<HomeDesign> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-                Icons.home,
+              Icons.home,
               size: 25.0,
             ),
             label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-                Icons.camera_alt,
+              Icons.camera_alt,
               size: 25.0,
             ),
             label: 'Camera',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(
-          //     Icons.favorite_border_outlined,
-          //     size: 25.0,
-          //   ),
-          //   label: 'Favorite',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.favorite_border_outlined,
+              size: 25.0,
+            ),
+            label: 'Favorite',
+          ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.people_outline,
@@ -127,7 +126,7 @@ class _HomeDesignState extends State<HomeDesign> {
           ),
         ],
         backgroundColor: Colors.white,
-        selectedItemColor:defaultColor,
+        selectedItemColor: defaultColor,
         unselectedItemColor: defaultColor,
         selectedFontSize: 15.0,
       ),
