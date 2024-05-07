@@ -1,10 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:graduation_project_yarab/Screens/Camera/recomended_screen.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
@@ -62,8 +58,7 @@ class _CameraScreenState extends State<CameraScreen> {
     }
   }
 
-
-  Future<void> postImageToApi() async {
+  Future<void> postImageToApiFromCamera() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.camera);
     if (image!= null) {
@@ -79,14 +74,45 @@ class _CameraScreenState extends State<CameraScreen> {
       var response = await request.send();
       if (response.statusCode == 200) {
         print('Image uploaded successfully');
-        showSuccessMessage('Your Skin Type Has Been Recognized');
+        showMessage('Your skin type has been recognized');
       } else {
         print('Error uploading image: ${response.statusCode}');
+        showMessage('Your skin type has not been recognized');
       }
     } else {
       print('No image selected');
+      showMessage('No image selected');
     }
   }
+
+  Future<void> postImageToApiFromGallery() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image!= null) {
+      File file = File(image.path);
+      var request = http.MultipartRequest('POST', Uri.parse('https://graduation-project-nodejs.onrender.com/api/model/predict/${user!.uid}'));
+      request.headers['Content-Type'] = 'multipart/form-data';
+      request.files.add(http.MultipartFile.fromBytes(
+        'file',
+        await file.readAsBytes(),
+        filename: file.path,
+        contentType: MediaType('image', 'jpeg'),
+      ));
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        print('Image uploaded successfully');
+        showMessage('Your skin type has been recognized');
+      } else {
+        print('Error uploading image: ${response.statusCode}');
+        showMessage('Your skin type has not been recognized');
+      }
+    } else {
+      print('No image selected');
+      showMessage('No image selected');
+    }
+  }
+
+  double textScaleFactor = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +125,7 @@ class _CameraScreenState extends State<CameraScreen> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Text(
-              '1. Wash your face with your deanser',
+              '1. Wash your face with your denser',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,
@@ -115,7 +141,7 @@ class _CameraScreenState extends State<CameraScreen> {
             ),
             SizedBox(height: screenHeight * 0.02),
             const Text(
-              '3.Wait 15 minutes',
+              '3.Wait a little time',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,
@@ -130,33 +156,70 @@ class _CameraScreenState extends State<CameraScreen> {
               ),
             ),
                 SizedBox(height: screenHeight * 0.02),
-                const Flexible(
+                 const Flexible(
                   child: Text(
-                    'Note : Analyzing Your Skin Features Takes Time, So please be patient!',
+                    'Note : Analyzing your skin features takes time, So please be patient!',
                     maxLines: 3,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
+                      fontSize: 20.0 ,
                     ),
                   ),
                 ),
             const Spacer(),
-            ElevatedButton(
-                onPressed: postImageToApi,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: defaultColor,
-                ),
-                child: const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    'Identify My Skin Type ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 20.0,
-                    ),
+             Center(
+                child: Text(
+                    'Identify my skin type',
+                  style: TextStyle(
+                    fontSize: 25 * textScaleFactor,
+                    fontWeight: FontWeight.bold,
+                    color: defaultColor,
                   ),
-                )),
+                )
+            ),
+            SizedBox(height: screenHeight * 0.005,),
+            Row(
+              children: [
+                ElevatedButton(
+                    onPressed:(){
+                      postImageToApiFromCamera();
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return const RecomendedProductsScreen();
+                    }));
+      },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: defaultColor,
+                    ),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        'By Camera ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 25 * textScaleFactor,
+                        ),
+                      ),
+                    )),
+                const Spacer(),
+                ElevatedButton(
+                    onPressed: postImageToApiFromGallery,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: defaultColor,
+                    ),
+                    child:  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        'By Gallery',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 25.0 * textScaleFactor,
+                        ),
+                      ),
+                    )),
+              ],
+            ),
             ElevatedButton(
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -166,24 +229,25 @@ class _CameraScreenState extends State<CameraScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: defaultColor,
                 ),
-                child: const Align(
+                child:  Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
                     'Recomended Products',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      fontSize: 20.0,
+                      fontSize: 20.0 * textScaleFactor,
                     ),
                   ),
                 )),
           ])),
     );
   }
-  void showSuccessMessage(String message) {
+  void showMessage(String message) {
     final snackBar = SnackBar(
       content: Text(message),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
+

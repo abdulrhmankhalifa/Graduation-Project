@@ -150,9 +150,6 @@ class _RecomendedProductsScreenState extends State<RecomendedProductsScreen> {
   }
 
   Future<void> GetData() async {
-    setState(() {
-      isLoading = false;
-    });
     final User? user = FirebaseAuth.instance.currentUser;
     final userId  = user!.uid;
     final url = 'https://graduation-project-nodejs.onrender.com/api/products/recommended/$userId';
@@ -166,6 +163,8 @@ class _RecomendedProductsScreenState extends State<RecomendedProductsScreen> {
       setState(() {
         products = result;
         skinType = resultSkin;
+        isLoading = false;
+
       });
     } else {
       // Handle the case when the server response is not OK
