@@ -149,9 +149,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   ///Get data
   Future<void> GetData() async {
     final userId = user!.uid;
-    setState(() {
-      isLoading = false;
-    });
     final url = 'https://graduation-project-nodejs.onrender.com/api/products/fav/user/$userId';
     final uri = Uri.parse(url);
 
@@ -162,12 +159,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       final result = json['favoriteProducts'] as List;
       setState(() {
         products = result;
+        isLoading = false;
       });
     } else {
       // Handle the case when the server response is not OK
-      setState(() {
-        isLoading = false;
-      });
       print(
           'Error fetching data from the server'); // Replace with an appropriate error message
     }

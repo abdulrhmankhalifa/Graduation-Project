@@ -124,7 +124,18 @@ class _CameraScreenState extends State<CameraScreen> {
           padding: const EdgeInsets.all(30.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text(
+                Center(
+                    child: Text(
+                      'Identify my skin type'.toUpperCase(),
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: defaultColor,
+                      ),
+                    )
+                ),
+                SizedBox(height: screenHeight * 0.02),
+                const Text(
               '1. Wash your face with your denser',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -141,21 +152,13 @@ class _CameraScreenState extends State<CameraScreen> {
             ),
             SizedBox(height: screenHeight * 0.02),
             const Text(
-              '3.Wait a little time',
+              '3.Wait for a minute or two',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,
               ),
             ),
             SizedBox(height: screenHeight * 0.02),
-            const Text(
-              '4.Take a picture for your skin according to our video below',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-              ),
-            ),
-                SizedBox(height: screenHeight * 0.02),
                  const Flexible(
                   child: Text(
                     'Note : Analyzing your skin features takes time, So please be patient!',
@@ -166,60 +169,56 @@ class _CameraScreenState extends State<CameraScreen> {
                     ),
                   ),
                 ),
-            const Spacer(),
-             Center(
-                child: Text(
-                    'Identify my skin type',
-                  style: TextStyle(
-                    fontSize: 25 * textScaleFactor,
-                    fontWeight: FontWeight.bold,
-                    color: defaultColor,
+
+
+            SizedBox(height: screenHeight * 0.05,),
+            ElevatedButton(
+                onPressed:postImageToApiFromCamera,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: defaultColor,
+                ),
+                child: const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    'Camera ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
                   ),
-                )
-            ),
-            SizedBox(height: screenHeight * 0.005,),
-            Row(
-              children: [
-                ElevatedButton(
-                    onPressed:(){
-                      postImageToApiFromCamera();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return const RecomendedProductsScreen();
-                    }));
-      },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: defaultColor,
+                )),
+                SizedBox(height: screenHeight * 0.005),
+            ElevatedButton(
+                onPressed: postImageToApiFromGallery,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: defaultColor,
+                ),
+                child:  const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    'Gallery',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 25.0,
                     ),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text(
-                        'By Camera ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 25 * textScaleFactor,
-                        ),
-                      ),
-                    )),
-                const Spacer(),
-                ElevatedButton(
-                    onPressed: postImageToApiFromGallery,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: defaultColor,
+                  ),
+                )),
+                SizedBox(height: screenHeight * 0.005),
+
+                const Flexible(
+                  child: Text(
+                    'You will be notified when the result is ready.',
+                    maxLines: 3,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0 ,
                     ),
-                    child:  Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text(
-                        'By Gallery',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 25.0 * textScaleFactor,
-                        ),
-                      ),
-                    )),
-              ],
-            ),
+                  ),
+                ),
+
+            const Spacer(),
             ElevatedButton(
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -229,14 +228,14 @@ class _CameraScreenState extends State<CameraScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: defaultColor,
                 ),
-                child:  Align(
+                child:  const Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    'Recomended Products',
+                    'Recommended Products',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      fontSize: 20.0 * textScaleFactor,
+                      fontSize: 20.0,
                     ),
                   ),
                 )),
