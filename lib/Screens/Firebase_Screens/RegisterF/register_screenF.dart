@@ -28,115 +28,73 @@ class _RegisterPageState extends State<RegisterScreenF> {
   final phoneController = TextEditingController();
 
   ///Sign up user
-  // void signUp() async
-  // {
-  //   if (passwordController.text != confirmPasswordController.text){
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //             content: Text("Password do  not match!"),
-  //         ),
-  //     );
-  //   }else{
-  //     await FirebaseAuth.instance
-  //         .verifyPhoneNumber(
-  //       verificationCompleted: (PhoneAuthCredential credential){
-  //
-  //       },
-  //       verificationFailed: (FirebaseAuthException ex){
-  //
-  //       },
-  //       codeSent: (String verificationid , int? resendtoken){
-  //         Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //                 builder: (context) => OTPScreen(verificationid: verificationid,)
-  //             )
-  //         );
-  //       },
-  //       codeAutoRetrievalTimeout: (String verificationid){
-  //
-  //       },
-  //       phoneNumber: phoneController.text.toString(),
-  //     );
-  //   }
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //   ///get  auth service
-  //   final authService = Provider.of<AuthService>(context, listen:  false);
-  //
-  //   try{
-  //     await authService.signUpWithEmailandPassword(emailController.text,passwordController.text);
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text(e.toString(),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  //
-  //
-  // }
-
   void signUp() async {
+    if (!validatePassword()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Password must be at least 6 characters long!"),
+        ),
+      );
+      return;
+    }
+
     if (passwordController.text != confirmPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Password does not match!"),
         ),
       );
-    } else {
-      await FirebaseAuth.instance.verifyPhoneNumber(
-        verificationCompleted: (PhoneAuthCredential credential){
+      return;
+    }
 
-        },
-        verificationFailed: (FirebaseAuthException ex){
+    verifyPhoneNumber();
+  }
 
-        },
-        codeSent: (String verificationid , int? resendtoken){
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => OTPScreen(verificationid: verificationid,)
-              )
-          );
-        },
-        codeAutoRetrievalTimeout: (String verificationid){
+  bool validatePassword() {
+    return passwordController.text.length >= 6;
+  }
 
-        },
-        phoneNumber: phoneController.text.toString(),
+  void verifyPhoneNumber() async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      verificationCompleted: (PhoneAuthCredential credential) {},
+      verificationFailed: (FirebaseAuthException ex) {},
+      codeSent: (String verificationid, int? resendtoken) {
+        signUpWithEmailandPassword();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => OTPScreen(verificationid: verificationid,)
+            )
+        );
+      },
+      codeAutoRetrievalTimeout: (String verificationid) {},
+      phoneNumber: phoneController.text.toString(),
+    );
+  }
+
+  void signUpWithEmailandPassword() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    try {
+      await authService.signUpWithEmailandPassword(
+        emailController.text,
+        passwordController.text,
       );
 
-      /// Get auth service
-      final authService = Provider.of<AuthService>(context, listen: false);
+      // Get the user ID
+      final userId = FirebaseAuth.instance.currentUser?.uid;
 
-      try {
-        await authService.signUpWithEmailandPassword(
-          emailController.text,
-          passwordController.text,
-        );
+      // Make an API call to send the user ID
+      // Replace with your actual API endpoint and data format
+      await sendUserIdToApi(userId);
 
-        // Get the user ID
-        final userId = FirebaseAuth.instance.currentUser?.uid;
-
-        // Make an API call to send the user ID
-        // Replace with your actual API endpoint and data format
-        await sendUserIdToApi(userId);
-
-        // Navigate to the next screen (e.g., HomeScreen)
-        // ...
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString()),
-          ),
-        );
-      }
+      // Navigate to the next screen (e.g., HomeScreen)
+      // ...
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
     }
   }
 
@@ -161,6 +119,7 @@ class _RegisterPageState extends State<RegisterScreenF> {
       print('Error sending user ID to API: ${response.statusCode}');
     }
   }
+
 
 
 

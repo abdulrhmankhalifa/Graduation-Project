@@ -168,9 +168,6 @@ class _RecomendedProductsScreenState extends State<RecomendedProductsScreen> {
       });
     } else {
       // Handle the case when the server response is not OK
-      setState(() {
-        isLoading = false;
-      });
       const Text('we have some error');
     }
   }

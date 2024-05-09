@@ -143,7 +143,8 @@ class _CartScreenState extends State<CartScreen> {
                                         crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                         children: [
-                                          Text(product['product']['price'].toString()),
+                                          Text('${product['product']['price'
+                                              ].toString()} l.e'),
                                         ],
                                       ),
                                     )
@@ -160,14 +161,14 @@ class _CartScreenState extends State<CartScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      const Text('Total Price :',
+                      const Text(' Total Price :',
                       style: TextStyle(
                         fontSize: 20.0,
                         color: defaultColor,
                         fontWeight: FontWeight.bold,
                       ),),
                       Text(
-                        getTotalPrice().toString(),
+                        ' ${getTotalPrice().toString()} l.e',
                         style: const TextStyle(
                           fontSize: 20.0,
                           color: defaultColor,

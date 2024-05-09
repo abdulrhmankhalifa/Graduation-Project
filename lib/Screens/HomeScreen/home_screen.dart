@@ -280,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Align(
                                         alignment: Alignment.bottomLeft,
                                         child:
-                                            Text(product['price'].toString()),
+                                            Text('${product['price'].toString()} l.e'),
                                       ),
                                     ],
                                   ),

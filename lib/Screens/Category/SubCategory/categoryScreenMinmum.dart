@@ -247,7 +247,7 @@ class _CategoryScreen1State extends State<CategoryScreen1> {
                                       Align(
                                         alignment: Alignment.bottomLeft,
                                         child:
-                                        Text(product['price'].toString()),
+                                        Text('${product['price'].toString()} l.e'),
                                       ),
                                     ],
                                   ),

@@ -96,7 +96,7 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                     Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          product['price'].toString(),
+                          '${product['price'].toString()} l.e',
                           style: const TextStyle(
                             fontSize: 15.0,
                           ),
