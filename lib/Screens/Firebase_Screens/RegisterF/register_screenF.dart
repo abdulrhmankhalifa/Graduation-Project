@@ -190,7 +190,7 @@ class _RegisterPageState extends State<RegisterScreenF> {
                   /// PhoneNumberTextField
                   MyTextField(
                     controller: phoneController,
-                    hintText: 'Phone number for verify',
+                    hintText: 'Phone number for verify Start +20',
                     obscureText: false,
                   ),
 

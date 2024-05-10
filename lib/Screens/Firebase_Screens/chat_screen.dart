@@ -39,6 +39,8 @@ class _ChatScreenState extends State<HomeChatScreen> {
   }
 
   Widget _buildUserList() {
+    final User? user = FirebaseAuth.instance.currentUser;
+
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('users').snapshots(),
         builder: (context, snapshot) {
@@ -52,7 +54,8 @@ class _ChatScreenState extends State<HomeChatScreen> {
 
           return ListView(
             children: snapshot.data!.docs
-                .map<Widget>((doc) => _buildUserListItem(doc))
+                .where((doc) => doc['email'] != 'adminapp@gmail.com')
+                .map((doc) => _buildUserListItem(doc))
                 .toList(),
           );
         });
@@ -77,7 +80,6 @@ class _ChatScreenState extends State<HomeChatScreen> {
                 ),
               ));
         },
-
       );
     } else {
       return Container();

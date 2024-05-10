@@ -1,10 +1,7 @@
 import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../../Sheard/component.dart';
-
 class OTPScreen extends StatefulWidget {
   String verificationid;
   OTPScreen({
@@ -32,11 +29,13 @@ class _OTPScreenState extends State<OTPScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: Image.asset('images/BMSK.png'),
-                iconSize: 200,
+                icon: Image.asset(
+                  'assets/images/LogoImage.jpg',
+                scale: 4,
+                ),
                 onPressed: () {
                 },
-                color: Colors.grey[800],
+                color: Colors.white,
               ),
 
               const Text(

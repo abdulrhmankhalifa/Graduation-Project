@@ -39,7 +39,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         iconTheme: const IconThemeData(
           color: defaultColor,
         ),
-        centerTitle: true,
         backgroundColor: Colors.grey[100],
         title: const Text('Favorites',
           style: TextStyle(
@@ -88,7 +87,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                             productIndex: product['id']),
                                   )
                               );
-                            },
+                              },
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Column(
