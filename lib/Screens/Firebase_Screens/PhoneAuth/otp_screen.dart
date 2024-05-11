@@ -17,6 +17,7 @@ class OTPScreen extends StatefulWidget {
 class _OTPScreenState extends State<OTPScreen> {
 
   TextEditingController otpController = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,12 +56,12 @@ class _OTPScreenState extends State<OTPScreen> {
                   onTap: () async {
                     try{
                       PhoneAuthCredential credential =
-                          await PhoneAuthProvider
+                          PhoneAuthProvider
                           .credential(
                           verificationId: widget.verificationid,
-                          smsCode: otpController.text.toString(),
+                          smsCode: otpController.text.trim(),
                       );
-                      FirebaseAuth.instance.signInWithCredential(credential)
+                      await auth.signInWithCredential(credential)
                           .then((value){
                            Navigator.pop(context);
                            });

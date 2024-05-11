@@ -26,6 +26,7 @@ class _RegisterPageState extends State<RegisterScreenF> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final phoneController = TextEditingController();
+  final auth = FirebaseAuth.instance;
 
   ///Sign up user
   void signUp() async {
@@ -47,17 +48,21 @@ class _RegisterPageState extends State<RegisterScreenF> {
       return;
     }
 
-    verifyPhoneNumber();
+    verifyPhoneNumber(context);
   }
 
   bool validatePassword() {
     return passwordController.text.length >= 6;
   }
 
-  void verifyPhoneNumber() async {
-    await FirebaseAuth.instance.verifyPhoneNumber(
-      verificationCompleted: (PhoneAuthCredential credential) {},
-      verificationFailed: (FirebaseAuthException ex) {},
+  Future<void> verifyPhoneNumber(BuildContext context) async {
+    String phoneNumber = phoneController.text.trim();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: (PhoneAuthCredential credential) async{},
+      verificationFailed: (FirebaseAuthException e) {print(e.message.toString());},
+
       codeSent: (String verificationid, int? resendtoken) {
         signUpWithEmailandPassword();
         Navigator.push(
@@ -67,8 +72,8 @@ class _RegisterPageState extends State<RegisterScreenF> {
             )
         );
       },
+
       codeAutoRetrievalTimeout: (String verificationid) {},
-      phoneNumber: phoneController.text.toString(),
     );
   }
 
