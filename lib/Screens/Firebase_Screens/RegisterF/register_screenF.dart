@@ -64,11 +64,13 @@ class _RegisterPageState extends State<RegisterScreenF> {
       verificationFailed: (FirebaseAuthException e) {print(e.message.toString());},
 
       codeSent: (String verificationid, int? resendtoken) {
-        signUpWithEmailandPassword();
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => OTPScreen(verificationid: verificationid,)
+                builder: (context) => OTPScreen(
+                  verificationid: verificationid,
+                  signUpWithEmailandPassword: signUpWithEmailandPassword,
+                )
             )
         );
       },

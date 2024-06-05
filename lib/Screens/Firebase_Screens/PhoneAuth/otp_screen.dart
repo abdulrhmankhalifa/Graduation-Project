@@ -4,10 +4,16 @@ import 'package:flutter/material.dart';
 import '../../../Sheard/component.dart';
 class OTPScreen extends StatefulWidget {
   String verificationid;
+  final void Function() signUpWithEmailandPassword;
+
   OTPScreen({
     super.key,
     required this.verificationid,
+    required this.signUpWithEmailandPassword,
+
   });
+
+
 
 
   @override
@@ -21,8 +27,9 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(),
+
+      backgroundColor: Colors.white,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -53,23 +60,22 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
               const SizedBox(height: 15.0,),
               MyButton(
-                  onTap: () async {
-                    try{
-                      PhoneAuthCredential credential =
-                          PhoneAuthProvider
-                          .credential(
-                          verificationId: widget.verificationid,
-                          smsCode: otpController.text.trim(),
-                      );
-                      await auth.signInWithCredential(credential)
-                          .then((value){
-                           Navigator.pop(context);
-                           });
-                    } catch (ex) {
-                      log(ex.toString() as num,);
-                    }
-                  },
-                  text: "OTP",
+                onTap: () async {
+                  try{
+                    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                      verificationId: widget.verificationid,
+                      smsCode: otpController.text.trim(),
+                    );
+                    await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
+                      // Create a new account in Firebase only when OTP verification is successful
+                      widget.signUpWithEmailandPassword();
+                      Navigator.pop(context);
+                    });
+                  } catch (ex) {
+                    log(ex.toString() as num,);
+                  }
+                },
+                text: "OTP",
               ),
             ],
           ),
