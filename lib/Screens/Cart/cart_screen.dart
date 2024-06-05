@@ -144,7 +144,7 @@ class _CartScreenState extends State<CartScreen> {
                                         CrossAxisAlignment.center,
                                         children: [
                                           Text('${product['product']['price'
-                                              ].toString()} l.e'),
+                                              ].toString()} EGP'),
                                         ],
                                       ),
                                     )
@@ -168,7 +168,7 @@ class _CartScreenState extends State<CartScreen> {
                         fontWeight: FontWeight.bold,
                       ),),
                       Text(
-                        ' ${getTotalPrice().toString()} l.e',
+                        ' ${getTotalPrice().toString()} EGP',
                         style: const TextStyle(
                           fontSize: 20.0,
                           color: defaultColor,

@@ -71,7 +71,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Shop By Category',
+                    'Shop By Categories',
                     style: TextStyle(
                       fontSize: 22.0,
                     ),

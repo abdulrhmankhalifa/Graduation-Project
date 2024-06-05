@@ -62,7 +62,7 @@ class _ProductsState extends State<Products> {
           color: defaultColor,
         ),
         title: const Text(
-          'Search For Product',
+          'Search For Products',
           style: TextStyle(
             color: defaultColor,
           ),
@@ -162,7 +162,7 @@ class _ProductsState extends State<Products> {
                                   Align(
                                     alignment: Alignment.bottomLeft,
                                     child:
-                                    Text(product['price'].toString()),
+                                    Text('${product['price'].toString()} EGP'),
                                   ),
                                 ],
                               ),

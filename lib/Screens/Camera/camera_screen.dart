@@ -136,7 +136,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 ),
                 SizedBox(height: screenHeight * 0.02),
                 const Text(
-              '1. Wash your face with your denser',
+              '1.Wash your face with your denser',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,

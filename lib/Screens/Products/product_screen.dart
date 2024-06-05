@@ -73,7 +73,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       const Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                            'Our Product',
+                            'Our Products',
                           style: TextStyle(
                             fontSize: 25.0,
                           ),
@@ -187,7 +187,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         Align(
                                           alignment: Alignment.bottomLeft,
                                           child:
-                                              Text('${product['price'].toString()} l.e'),
+                                              Text('${product['price'].toString()} EGP'),
                                         ),
                                       ],
                                     ),
