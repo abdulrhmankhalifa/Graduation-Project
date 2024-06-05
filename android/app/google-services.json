@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "931943906136",
+    "project_id": "graduationproject-52a21",
+    "storage_bucket": "graduationproject-52a21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931943906136:android:e0d876b15cc4cbd1bbc32d",
+        "android_client_info": {
+          "package_name": "com.beautymate.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA79fJNf76jYHha7p7SXxgzytin9kEC-ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931943906136:android:f4afe49913bc1ffebbc32d",
+        "android_client_info": {
+          "package_name": "com.example.graduation_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA79fJNf76jYHha7p7SXxgzytin9kEC-ps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
