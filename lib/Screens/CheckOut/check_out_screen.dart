@@ -29,20 +29,21 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     super.initState();
     GetDataAddress();
     GetDataPhoneNumber();
-    addressController = TextEditingController(text: selectedAddress.replaceAll('{', '').replaceAll('}', ''));
+    addressController = TextEditingController(
+        text: selectedAddress.replaceAll('{', '').replaceAll('}', ''));
   }
 
   @override
   void dispose() {
     addressController.dispose();
     super.dispose();
-
   }
 
   @override
   Widget build(BuildContext context) {
-    String selectedAddress = addresses.isNotEmpty ? addresses.first : 'Default Address';    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight= MediaQuery.of(context).size.height;
+    String selectedAddress =
+        addresses.isNotEmpty ? addresses.first : 'Default Address';
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: defaultColor,
       appBar: AppBar(
@@ -83,7 +84,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                       ),
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: screenHeight * 0.005,
                     ),
                     FittedBox(
@@ -95,22 +96,27 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             fontSize: 18,
                           ),
                           value: selectedAddress,
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedAddress = newValue!;
-                                addressController.text = newValue;
-                              });
-                            },
-                          items: addresses.map<DropdownMenuItem<String>>((String value) {
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedAddress = newValue!;
+                              addressController.text = newValue;
+                            });
+                          },
+                          items: addresses
+                              .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
-                              child:Text(value.replaceAll('{', '').replaceAll('}', '')),
+                              child: Text(value
+                                  .replaceAll('{', '')
+                                  .replaceAll('}', '')),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.005,),
+                    SizedBox(
+                      height: screenHeight * 0.005,
+                    ),
                     TextField(
                       controller: addressController,
                       decoration: const InputDecoration(
@@ -122,14 +128,21 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       onChanged: (String? newValue) {
                         if (newValue != null) {
                           setState(() {
-                            selectedAddress = newValue.replaceAll('{', '').replaceAll('}', ''); // Remove braces from the selected value
-                            addressController.text = newValue.replaceAll('{', '').replaceAll('}', ''); // Remove braces from the addressController text
+                            selectedAddress = newValue
+                                .replaceAll('{', '')
+                                .replaceAll('}',
+                                    ''); // Remove braces from the selected value
+                            addressController.text = newValue
+                                .replaceAll('{', '')
+                                .replaceAll('}',
+                                    ''); // Remove braces from the addressController text
                           });
                         }
                       },
                     ),
-
-                    SizedBox(height: screenHeight * 0.065,),
+                    SizedBox(
+                      height: screenHeight * 0.065,
+                    ),
                     const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -140,8 +153,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                       ),
                     ),
-                     SizedBox(height: screenHeight * 0.01,),
-                     TextField(
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
+                    TextField(
                       controller: phoneNumberController,
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -150,7 +165,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         color: defaultColor,
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.065,),
+                    SizedBox(
+                      height: screenHeight * 0.065,
+                    ),
                     const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -161,11 +178,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                       ),
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: screenHeight * 0.01,
                     ),
                     ElevatedButton(
-
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
                         shape: RoundedRectangleBorder(
@@ -190,7 +206,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: screenHeight * 0.05,),
+                    SizedBox(
+                      height: screenHeight * 0.05,
+                    ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -199,13 +217,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         backgroundColor: defaultColor,
                       ),
                       onPressed: () {
-                        createNewOrder(addressController.text, phoneNumberController.text);
+                        createNewOrder(
+                            addressController.text, phoneNumberController.text);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const HomeDesign()
-                          ),
+                              builder: (context) => const HomeDesign()),
                         );
                       },
                       child: const Row(
@@ -238,7 +255,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   ///Post data to create order
   Future<void> createNewOrder(String address, String phoneNumber) async {
     final User? user = FirebaseAuth.instance.currentUser;
-    final url = Uri.parse('https://graduation-project-nodejs.onrender.com/api/order/create');
+    final url = Uri.parse(
+        'https://graduation-project-nodejs.onrender.com/api/order/create');
 
     // Print the address to verify its value
     print('Address to be sent: $address');
@@ -308,10 +326,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
     final response = await http.get(uri);
     if (response.statusCode == 200) {
-      final json = jsonDecode(response.body) as Map<String , dynamic>;
+      final json = jsonDecode(response.body) as Map<String, dynamic>;
       final result = json['user']['phoneNumber'] as String;
       setState(() {
-        products =  [{'phoneNumber': result}];
+        products = [
+          {'phoneNumber': result}
+        ];
         phoneNumberController.text = result;
       });
     } else {
@@ -322,6 +342,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       const Text('we have some error');
     }
   }
+
   Future<void> addNewAddress(String newAddress) async {
     final User? user = FirebaseAuth.instance.currentUser;
     final url = Uri.parse(
@@ -345,7 +366,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       print('Address Add Successfully');
-      print('your id is ${user!.uid}');
+      print('your id is ${user.uid}');
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.

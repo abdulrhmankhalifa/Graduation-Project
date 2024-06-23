@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:graduation_project_yarab/Styles/colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -60,21 +59,19 @@ class _RegisterPageState extends State<RegisterScreenF> {
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
-      verificationCompleted: (PhoneAuthCredential credential) async{},
-      verificationFailed: (FirebaseAuthException e) {print(e.message.toString());},
-
+      verificationCompleted: (PhoneAuthCredential credential) async {},
+      verificationFailed: (FirebaseAuthException e) {
+        print(e.message.toString());
+      },
       codeSent: (String verificationid, int? resendtoken) {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => OTPScreen(
-                  verificationid: verificationid,
-                  signUpWithEmailandPassword: signUpWithEmailandPassword,
-                )
-            )
-        );
+                      verificationid: verificationid,
+                      signUpWithEmailandPassword: signUpWithEmailandPassword,
+                    )));
       },
-
       codeAutoRetrievalTimeout: (String verificationid) {},
     );
   }
@@ -107,7 +104,8 @@ class _RegisterPageState extends State<RegisterScreenF> {
 
   Future<void> sendUserIdToApi(String? userId) async {
     // Replace with your actual API endpoint and data format
-    final apiUrl = 'https://graduation-project-nodejs.onrender.com/api/users/register';
+    final apiUrl =
+        'https://graduation-project-nodejs.onrender.com/api/users/register';
     final response = await http.post(
       Uri.parse(apiUrl),
       headers: <String, String>{
@@ -127,17 +125,13 @@ class _RegisterPageState extends State<RegisterScreenF> {
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight= MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      body:
-      SingleChildScrollView(
+      body: SingleChildScrollView(
         child: SafeArea(
           child: Center(
             child: Padding(
@@ -148,7 +142,7 @@ class _RegisterPageState extends State<RegisterScreenF> {
                   ///Icon app
                   IconButton(
                     icon: Image.asset(
-                        'assets/images/LogoImage.jpg',
+                      'assets/images/LogoImage.jpg',
                       scale: 4,
                     ),
                     onPressed: () {},
@@ -163,7 +157,10 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     ),
                   ),
 
-                   SizedBox(height: screenHeight * 0.02,),
+                  SizedBox(
+                    height: screenHeight * 0.02,
+                  ),
+
                   ///EmailTextField
                   MyTextField(
                     controller: emailController,
@@ -171,9 +168,9 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     obscureText: false,
                   ),
 
-
-
-                   SizedBox(height: screenHeight * 0.01,),
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
 
                   ///PasswordTextField
                   MyTextField(
@@ -182,7 +179,9 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     obscureText: true,
                   ),
 
-                  SizedBox(height: screenHeight * 0.01,),
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
 
                   ///ConfirmPasswordTextField
                   MyTextField(
@@ -191,8 +190,9 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     obscureText: true,
                   ),
 
-                  SizedBox(height: screenHeight * 0.01,),
-
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
 
                   /// PhoneNumberTextField
                   MyTextField(
@@ -201,7 +201,9 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     obscureText: false,
                   ),
 
-                  SizedBox(height: screenHeight * 0.01,),
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
 
                   ///button Sigh up Field
                   MyButton(
@@ -209,12 +211,16 @@ class _RegisterPageState extends State<RegisterScreenF> {
                     text: "Sign Up",
                   ),
 
-                  SizedBox(height: screenHeight * 0.01,),
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Already a member?'),
-                       SizedBox(width:screenWidth * 0.02,),
+                      SizedBox(
+                        width: screenWidth * 0.02,
+                      ),
                       GestureDetector(
                         onTap: widget.onTap,
                         child: const Text(
@@ -235,4 +241,3 @@ class _RegisterPageState extends State<RegisterScreenF> {
     );
   }
 }
-

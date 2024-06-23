@@ -4,7 +4,6 @@ import '../../Styles/colors.dart';
 import 'current_order.dart';
 import 'orders.dart';
 
-
 class mainOrder extends StatefulWidget {
   const mainOrder({super.key});
 
@@ -15,8 +14,7 @@ class mainOrder extends StatefulWidget {
 class _mainOrderState extends State<mainOrder> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight= MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -40,7 +38,9 @@ class _mainOrderState extends State<mainOrder> {
         padding: const EdgeInsets.symmetric(horizontal: 25.0),
         child: Column(
           children: [
-            SizedBox(height: screenHeight * 0.2,),
+            SizedBox(
+              height: screenHeight * 0.2,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -68,7 +68,9 @@ class _mainOrderState extends State<mainOrder> {
                 ],
               ),
             ),
-            SizedBox(height: screenHeight * 0.03,),
+            SizedBox(
+              height: screenHeight * 0.03,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

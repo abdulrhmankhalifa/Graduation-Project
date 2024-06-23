@@ -1,14 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project_yarab/Screens/Favorites/favorite_screen.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../Styles/colors.dart';
 import '../Category/SubCategory/categoryScreenMinmum.dart';
 import '../Category/category_screen.dart';
-import '../HomePage/home_page.dart';
 import '../Products/Single_Product.dart';
 import '../Products/product_screen.dart';
 
@@ -209,7 +207,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     RefreshIndicator(
                       onRefresh: GetData,
                       child: GridView.builder(
-                          itemCount: products.length > 10 ? products.length = 10 : products.length,
+                          itemCount: products.length > 10
+                              ? products.length = 10
+                              : products.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
@@ -249,10 +249,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   !product['isFavourite'];
                                               addToFavorites(
                                                   user!.uid, product['id']);
-
                                             });
                                           },
-
                                           icon: product['isFavourite']
                                               ? const Icon(
                                                   Icons.favorite,
@@ -279,8 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Spacer(),
                                       Align(
                                         alignment: Alignment.bottomLeft,
-                                        child:
-                                            Text('${product['price'].toString()} EGP'),
+                                        child: Text(
+                                            '${product['price'].toString()} EGP'),
                                       ),
                                     ],
                                   ),

@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project_yarab/Screens/Firebase_Screens/chat_page.dart';
@@ -17,12 +15,10 @@ class MyAccountScreen extends StatefulWidget {
   State<MyAccountScreen> createState() => _MyAccountScreenState();
 }
 
-
 class _MyAccountScreenState extends State<MyAccountScreen> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight= MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
     final User? user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
@@ -47,7 +43,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 25.0),
         child: Column(
           children: [
-            SizedBox(height: screenHeight * 0.2,),
+            SizedBox(
+              height: screenHeight * 0.2,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -75,7 +73,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 ],
               ),
             ),
-            SizedBox(height: screenHeight * 0.01,),
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -103,7 +103,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 ],
               ),
             ),
-            SizedBox(height: screenHeight * 0.01,),
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -131,7 +133,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 ],
               ),
             ),
-            SizedBox(height: screenHeight * 0.01,),
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -159,7 +163,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 ],
               ),
             ),
-            SizedBox(height: screenHeight * 0.01,),
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -172,9 +178,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   return user!.email == 'adminapp@gmail.com'
                       ? const HomeChatScreen()
                       : const ChatPage(
-                    receiverUserEmail: 'adminapp@gmail.com',
-                    receiverUserID: 'fgRv8fR9GQaUVfyTvjldkmaL1tB2',
-                  );
+                          receiverUserEmail: 'adminapp@gmail.com',
+                          receiverUserID: 'fgRv8fR9GQaUVfyTvjldkmaL1tB2',
+                        );
                 }));
               },
               child: const Row(

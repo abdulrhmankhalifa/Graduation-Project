@@ -3,11 +3,10 @@ import 'package:flutter/services.dart';
 
 import 'colors.dart';
 
+ThemeData darkTheme = ThemeData(
+  primarySwatch: Colors.indigo,
 
-
-
-ThemeData darkTheme = ThemeData (
-  primarySwatch: Colors.indigo, /// للكل
+  /// للكل
   scaffoldBackgroundColor: defaultColor,
   appBarTheme: const AppBarTheme(
     titleSpacing: 20.0,
@@ -25,9 +24,8 @@ ThemeData darkTheme = ThemeData (
     iconTheme: IconThemeData(
       color: Colors.grey,
     ),
-
   ),
-  bottomNavigationBarTheme: const BottomNavigationBarThemeData  (
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     selectedItemColor: defaultColor,
     elevation: 20.0,
@@ -35,17 +33,19 @@ ThemeData darkTheme = ThemeData (
     unselectedItemColor: Colors.grey,
   ),
   textTheme: const TextTheme(
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
   ),
   fontFamily: 'Jannah',
-) ;
+);
 
 ThemeData lightTheme = ThemeData(
-  primarySwatch: Colors.indigo, /// للكل
+  primarySwatch: Colors.indigo,
+
+  /// للكل
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: const AppBarTheme(
     titleSpacing: 20.0,
@@ -64,7 +64,7 @@ ThemeData lightTheme = ThemeData(
       color: Colors.black,
     ),
   ),
-  bottomNavigationBarTheme: const BottomNavigationBarThemeData  (
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     selectedItemColor: defaultColor,
     elevation: 20.0,
@@ -72,11 +72,11 @@ ThemeData lightTheme = ThemeData(
     unselectedItemColor: Colors.grey,
   ),
   textTheme: TextTheme(
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
   ),
   fontFamily: 'Jannah',
-) ;
+);

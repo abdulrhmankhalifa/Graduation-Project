@@ -6,7 +6,6 @@ import '../../Styles/colors.dart';
 import '../Search_Screen/search_screen.dart';
 import 'SubCategory/categoryScreenMinmum.dart';
 
-
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
 
@@ -29,8 +28,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight= MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -38,14 +36,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
         iconTheme: const IconThemeData(
           color: defaultColor, // Change your color here
         ),
-
         actions: [
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  const Products(),
+                  builder: (context) => const Products(),
                 ),
               );
             },
@@ -58,90 +55,95 @@ class _CategoryScreenState extends State<CategoryScreen> {
         ],
       ),
       backgroundColor: Colors.grey[100],
-      body:
-      isLoading
+      body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                SizedBox(height: screenHeight * 0.02,),
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Shop By Categories',
-                    style: TextStyle(
-                      fontSize: 22.0,
-                    ),
-                  ),
-                ),
-                 SizedBox(height: screenHeight * 0.02,),
-                ///Category
-
-                ///Products
-                RefreshIndicator(
-                  onRefresh: GetDataCategories,
-                  child: GridView.builder(
-                      itemCount: categories.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        childAspectRatio: 0.70,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: screenHeight * 0.02,
                       ),
-                      itemBuilder: (context, index) {
-                        final category = categories[index] as Map;
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Shop By Categories',
+                          style: TextStyle(
+                            fontSize: 22.0,
                           ),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                    CategoryScreen1(CategoryIndex: category['id'],),
-                                  )
-                              );
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                children: [
-                                  AspectRatio(
-                                    aspectRatio: 1.0,
-                                    child: Image.network(
-                                      category['category_image_url'],
-                                      fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.02,
+                      ),
+
+                      ///Category
+
+                      ///Products
+                      RefreshIndicator(
+                        onRefresh: GetDataCategories,
+                        child: GridView.builder(
+                            itemCount: categories.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 0.70,
+                            ),
+                            itemBuilder: (context, index) {
+                              final category = categories[index] as Map;
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => CategoryScreen1(
+                                            CategoryIndex: category['id'],
+                                          ),
+                                        ));
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      children: [
+                                        AspectRatio(
+                                          aspectRatio: 1.0,
+                                          child: Image.network(
+                                            category['category_image_url'],
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Text(
+                                            category['name'],
+                                            style:
+                                                const TextStyle(fontSize: 15.0),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  const Spacer(),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Text(category['name'],
-                                    style: const TextStyle(
-                                      fontSize: 15.0
-                                    ),),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
+                                ),
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 
@@ -175,7 +177,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
     setState(() {
       isLoading = false;
     });
-    const url = 'https://graduation-project-nodejs.onrender.com/api/categories/';
+    const url =
+        'https://graduation-project-nodejs.onrender.com/api/categories/';
     final uri = Uri.parse(url);
 
     final response = await http.get(uri);

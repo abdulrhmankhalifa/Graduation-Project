@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -10,7 +9,8 @@ class UpdatePhoneNumberScreen extends StatefulWidget {
   const UpdatePhoneNumberScreen({super.key});
 
   @override
-  State<UpdatePhoneNumberScreen> createState() => _UpdatePhoneNumberScreenState();
+  State<UpdatePhoneNumberScreen> createState() =>
+      _UpdatePhoneNumberScreenState();
 }
 
 class _UpdatePhoneNumberScreenState extends State<UpdatePhoneNumberScreen> {
@@ -26,7 +26,6 @@ class _UpdatePhoneNumberScreenState extends State<UpdatePhoneNumberScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     int IndexNum = 0;
@@ -68,14 +67,16 @@ class _UpdatePhoneNumberScreenState extends State<UpdatePhoneNumberScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              SizedBox(height: screenHeight * 0.2,),
+              SizedBox(
+                height: screenHeight * 0.2,
+              ),
               RefreshIndicator(
                 onRefresh: GetData,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: defaultColor , width: 3),
+                      border: Border.all(color: defaultColor, width: 3),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Padding(
@@ -90,7 +91,9 @@ class _UpdatePhoneNumberScreenState extends State<UpdatePhoneNumberScreen> {
                             ),
                           ),
                           Text(
-                            products.isNotEmpty ? products[IndexNum]['phoneNumber']: 'N/A',
+                            products.isNotEmpty
+                                ? products[IndexNum]['phoneNumber']
+                                : 'N/A',
                             style: const TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w400,
@@ -109,7 +112,7 @@ class _UpdatePhoneNumberScreenState extends State<UpdatePhoneNumberScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: defaultColor , width: 3),
+                    border: Border.all(color: defaultColor, width: 3),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
@@ -126,8 +129,9 @@ class _UpdatePhoneNumberScreenState extends State<UpdatePhoneNumberScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.02,),
-
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
                         TextField(
                           controller: newPhoneNumberController,
                           decoration: const InputDecoration(
@@ -168,10 +172,12 @@ class _UpdatePhoneNumberScreenState extends State<UpdatePhoneNumberScreen> {
 
     final response = await http.get(uri);
     if (response.statusCode == 200) {
-      final json = jsonDecode(response.body) as Map<String , dynamic>;
+      final json = jsonDecode(response.body) as Map<String, dynamic>;
       final result = json['user']['phoneNumber'] as String;
       setState(() {
-        products =  [{'phoneNumber': result}];
+        products = [
+          {'phoneNumber': result}
+        ];
       });
     } else {
       // Handle the case when the server response is not OK
@@ -205,7 +211,7 @@ class _UpdatePhoneNumberScreenState extends State<UpdatePhoneNumberScreen> {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       print('Phone Number Update or added Successfully');
-      print('your id is ${user!.uid}');
+      print('your id is ${user.uid}');
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.

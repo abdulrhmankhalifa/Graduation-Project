@@ -31,8 +31,7 @@ class _SingleOrderScreenState extends State<SingleOrderScreen> {
       (product) => product['orderId'] == widget.orderIndex,
       orElse: () => null,
     );
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -143,8 +142,6 @@ class _SingleOrderScreenState extends State<SingleOrderScreen> {
     // Retrieve the current user's ID from FirebaseAuth
     final firebaseUser = FirebaseAuth.instance.currentUser;
     if (firebaseUser != null) {
-      final firebaseId = firebaseUser.uid;
-
       // Define the API endpoint with query parameters
       final url =
           'https://graduation-project-nodejs.onrender.com/api/order/users/${firebaseUser.uid}';

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -26,7 +25,6 @@ class _UpdateAddressScreenState extends State<UpdateAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     int IndexNum = 0;
@@ -218,7 +216,7 @@ class _UpdateAddressScreenState extends State<UpdateAddressScreen> {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       print('Address Add Successfully');
-      print('your id is ${user!.uid}');
+      print('your id is ${user.uid}');
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.

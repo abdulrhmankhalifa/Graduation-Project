@@ -10,7 +10,8 @@ class RecomendedProductsScreen extends StatefulWidget {
   const RecomendedProductsScreen({super.key});
 
   @override
-  State<RecomendedProductsScreen> createState() => _RecomendedProductsScreenState();
+  State<RecomendedProductsScreen> createState() =>
+      _RecomendedProductsScreenState();
 }
 
 class _RecomendedProductsScreenState extends State<RecomendedProductsScreen> {
@@ -29,7 +30,6 @@ class _RecomendedProductsScreenState extends State<RecomendedProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.grey[100],
@@ -47,112 +47,115 @@ class _RecomendedProductsScreenState extends State<RecomendedProductsScreen> {
             color: defaultColor,
           ),
         ),
-
       ),
-      body:
-      isLoading
+      body: isLoading
           ? const Center(child: CircularProgressIndicator())
-      :
-      SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            children: [
-              SizedBox(height: screenHeight * 0.01,),
-               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
+          : SingleChildScrollView(
+              child: SafeArea(
+                child: Column(
                   children: [
-                    const Text(
-                      'Your Skin Type : ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 22,
-                        color: defaultColor,
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'Your Skin Type : ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 22,
+                              color: defaultColor,
+                            ),
+                          ),
+                          Text(
+                            skinType,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 25,
+                              color: defaultColor,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Text(
-                    skinType,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 25,
-                      color: defaultColor,
+                    SizedBox(
+                      height: screenHeight * 0.02,
                     ),
-
+                    RefreshIndicator(
+                      onRefresh: GetData,
+                      child: GridView.builder(
+                          itemCount: products.length > 10
+                              ? products.length = 10
+                              : products.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 0.55,
+                          ),
+                          itemBuilder: (context, index) {
+                            final product = products[index] as Map;
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            SingleProductScreen(
+                                                productIndex: product['id']),
+                                      ));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Column(
+                                    children: [
+                                      AspectRatio(
+                                        aspectRatio: 1.0,
+                                        child: Image.network(
+                                          product['product_image_url'],
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(product['name']),
+                                      ),
+                                      const Spacer(),
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Text(
+                                            '${product['price'].toString()} EGP'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: screenHeight * 0.02,),
-              RefreshIndicator(
-                onRefresh: GetData,
-                child: GridView.builder(
-                    itemCount: products.length > 10 ? products.length = 10 : products.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 0.55,
-                    ),
-                    itemBuilder: (context, index) {
-                      final product = products[index] as Map;
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      SingleProductScreen(
-                                          productIndex: product['id']),
-                                ));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              children: [
-                                AspectRatio(
-                                  aspectRatio: 1.0,
-                                  child: Image.network(
-                                    product['product_image_url'],
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(product['name']),
-                                ),
-                                const Spacer(),
-                                Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child:
-                                  Text('${product['price'].toString()} EGP'),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 
   Future<void> GetData() async {
     final User? user = FirebaseAuth.instance.currentUser;
-    final userId  = user!.uid;
-    final url = 'https://graduation-project-nodejs.onrender.com/api/products/recommended/$userId';
+    final userId = user!.uid;
+    final url =
+        'https://graduation-project-nodejs.onrender.com/api/products/recommended/$userId';
     final uri = Uri.parse(url);
 
     final response = await http.get(uri);
@@ -164,7 +167,6 @@ class _RecomendedProductsScreenState extends State<RecomendedProductsScreen> {
         products = result;
         skinType = resultSkin;
         isLoading = false;
-
       });
     } else {
       // Handle the case when the server response is not OK
@@ -184,7 +186,7 @@ class _RecomendedProductsScreenState extends State<RecomendedProductsScreen> {
         'Accept-Encoding': 'gzip, deflate, br',
         'Connection': 'keep-alive',
         'Authorization':
-        'Bearer{{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImVtYWlsIjoibWFzeW0zQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTcxMzg5MTA5MiwiZXhwIjoxNzE0NjY4NjkyfQ.OhFcMk5DCKD5hB7UxV5GESUfx0RdsRf9qtZwa9LWGr8}}'
+            'Bearer{{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImVtYWlsIjoibWFzeW0zQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIn0sImlhdCI6MTcxMzg5MTA5MiwiZXhwIjoxNzE0NjY4NjkyfQ.OhFcMk5DCKD5hB7UxV5GESUfx0RdsRf9qtZwa9LWGr8}}'
       },
       body: jsonEncode(<String, dynamic>{
         'firebaseId': userId,

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../Styles/colors.dart';
 import 'chat_page.dart';
 
-
 class HomeChatScreen extends StatefulWidget {
   const HomeChatScreen({super.key});
 
@@ -39,8 +38,6 @@ class _ChatScreenState extends State<HomeChatScreen> {
   }
 
   Widget _buildUserList() {
-    final User? user = FirebaseAuth.instance.currentUser;
-
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('users').snapshots(),
         builder: (context, snapshot) {

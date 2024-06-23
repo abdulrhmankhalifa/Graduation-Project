@@ -24,11 +24,10 @@ class _SettingScreenState extends State<SettingScreen> {
 
       authService.signOut();
     }
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight= MediaQuery.of(context).size.height;
+
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-
       backgroundColor: Colors.grey[100],
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -36,7 +35,9 @@ class _SettingScreenState extends State<SettingScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-               SizedBox(height: screenHeight * 0.2,),
+              SizedBox(
+                height: screenHeight * 0.2,
+              ),
               const Text(
                 'Settings',
                 style: TextStyle(
@@ -44,7 +45,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   color: defaultColor,
                 ),
               ),
-              SizedBox(height: screenHeight * 0.05,),
+              SizedBox(
+                height: screenHeight * 0.05,
+              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -72,7 +75,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   ],
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: screenHeight * 0.03,
               ),
               ElevatedButton(
@@ -102,7 +105,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   ],
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: screenHeight * 0.03,
               ),
               ElevatedButton(
@@ -112,8 +115,8 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   backgroundColor: Colors.white,
                 ),
-                onPressed: ()  {
-                   signOut();
+                onPressed: () {
+                  signOut();
                 },
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
@@ -122,7 +125,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       'Log Out',
                       style: TextStyle(color: defaultColor, fontSize: 15.0),
                     ),
-                  Spacer(),
+                    Spacer(),
                     Icon(
                       Icons.arrow_forward,
                       color: defaultColor,

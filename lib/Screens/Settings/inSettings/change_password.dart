@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../Styles/colors.dart';
 
-
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
 
@@ -62,8 +61,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight= MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -90,13 +88,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               children: [
                 IconButton(
                   icon: Image.asset(
-                      'assets/images/LogoImage.jpg',
+                    'assets/images/LogoImage.jpg',
                     scale: 4,
                   ),
                   onPressed: () {},
                   color: Colors.white,
                 ),
-                 SizedBox(
+                SizedBox(
                   height: screenHeight * 0.02,
                 ),
                 const Text(
@@ -105,7 +103,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     fontSize: 15.0,
                   ),
                 ),
-                 SizedBox(
+                SizedBox(
                   height: screenHeight * 0.01,
                 ),
                 TextFormField(
@@ -117,7 +115,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                 SizedBox(
+                SizedBox(
                   height: screenHeight * 0.03,
                 ),
                 TextFormField(
@@ -128,7 +126,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                 SizedBox(
+                SizedBox(
                   height: screenHeight * 0.03,
                 ),
                 TextFormField(
@@ -139,7 +137,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                 SizedBox(
+                SizedBox(
                   height: screenHeight * 0.03,
                 ),
                 GestureDetector(
@@ -169,8 +167,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     ),
                   ),
                 ),
-
-                 SizedBox(
+                SizedBox(
                   height: screenHeight * 0.01,
                 ),
                 const Text(
